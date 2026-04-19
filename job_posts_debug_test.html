@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posts Debug Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">🔧 Job Posts Debug Test</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">🎯 Testing Steps</h2>
+            <div class="space-y-3">
+                <p><strong>1.</strong> Log in as an employer</p>
+                <p><strong>2.</strong> Go to the employer dashboard</p>
+                <p><strong>3.</strong> Open browser console (F12)</p>
+                <p><strong>4.</strong> Click "Job Posts" in the sidebar</p>
+                <p><strong>5.</strong> Check console for debug messages:</p>
+                <ul class="ml-6 space-y-1 text-sm">
+                    <li>• "🎯 Job Posts clicked"</li>
+                    <li>• "📄 Looking for job-posts-content element..."</li>
+                    <li>• "🔍 Found job-posts-content: true/false"</li>
+                    <li>• "✅ showContent result: true/false"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">🔍 What to Look For</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">✅ If Working:</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Console shows "Found job-posts-content: true"</li>
+                        <li>• Console shows "showContent result: true"</li>
+                        <li>• Job Posts content appears</li>
+                        <li>• Debug info box shows job counts</li>
+                        <li>• Job posts list or empty state displays</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">❌ If Not Working:</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Console shows "Found job-posts-content: false"</li>
+                        <li>• Console shows "showContent result: false"</li>
+                        <li>• No content appears</li>
+                        <li>• JavaScript errors in console</li>
+                        <li>• Element not found errors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-yellow-800 mb-4">🔧 Debug Features Added</h2>
+            <div class="space-y-2 text-yellow-700">
+                <p><strong>1. Enhanced Console Logging:</strong> Added detailed debug messages to track the click event</p>
+                <p><strong>2. Element Detection:</strong> Checks if job-posts-content element exists</p>
+                <p><strong>3. Style Inspection:</strong> Shows element classes and display properties</p>
+                <p><strong>4. Debug Info Box:</strong> Visual indicator in the Job Posts section showing data</p>
+                <p><strong>5. Function Result Tracking:</strong> Shows if showContent function succeeds</p>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-blue-800 mb-4">📋 Expected Behavior</h2>
+            <div class="space-y-3 text-blue-700">
+                <p>When you click "Job Posts" in the sidebar, you should see:</p>
+                <ol class="list-decimal ml-6 space-y-1">
+                    <li>The Job Posts section becomes visible</li>
+                    <li>A blue debug info box showing job counts</li>
+                    <li>Either a list of your job posts OR an empty state message</li>
+                    <li>Search and filter controls</li>
+                    <li>Action buttons for each job (if any exist)</li>
+                </ol>
+                <p class="mt-4"><strong>If you don't see this, check the browser console for error messages.</strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

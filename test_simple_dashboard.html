@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Test Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 text-white p-4">
+            <h1 class="text-xl font-bold mb-8">Dashboard</h1>
+            <nav>
+                <a href="#" class="sidebar-link block py-2 px-4 rounded hover:bg-gray-700 mb-2" data-content="dashboard">Dashboard</a>
+                <a href="#" class="sidebar-link block py-2 px-4 rounded hover:bg-gray-700 mb-2" data-content="job-posts">Job Posts</a>
+                <a href="#" class="sidebar-link block py-2 px-4 rounded hover:bg-gray-700 mb-2" data-content="applications">Applications</a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <div id="dashboard-content" class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Dashboard Content</h2>
+                <p>This is the dashboard section.</p>
+            </div>
+            
+            <div id="job-posts-content" class="content-section hidden">
+                <h2 class="text-2xl font-bold mb-4">Job Posts Content</h2>
+                <p>This is the job posts section.</p>
+            </div>
+            
+            <div id="applications-content" class="content-section hidden">
+                <h2 class="text-2xl font-bold mb-4">Applications Content</h2>
+                <p>This is the applications section.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            function showContent(contentId) {
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                // Show target section
+                const target = document.getElementById(contentId + '-content');
+                if (target) {
+                    target.classList.remove('hidden');
+                }
+            }
+            
+            // Add click listeners
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const contentId = link.getAttribute('data-content');
+                    if (contentId) {
+                        showContent(contentId);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

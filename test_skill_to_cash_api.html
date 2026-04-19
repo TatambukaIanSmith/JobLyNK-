@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill-to-Cash API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .result { background: #f5f5f5; padding: 10px; margin: 10px 0; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Skill-to-Cash API Testing</h1>
+    
+    <div class="test-section">
+        <h3>1. Test API Connection</h3>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>2. Get Profile Stats</h3>
+        <button onclick="getStats()">Get Stats</button>
+        <div id="statsResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>3. Save Test Profile</h3>
+        <button onclick="saveTestProfile()">Save Test Profile</button>
+        <div id="saveResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>4. Get Profile</h3>
+        <button onclick="getProfile()">Get Profile</button>
+        <div id="profileResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>5. Get Job Matches</h3>
+        <button onclick="getMatches()">Get Job Matches</button>
+        <div id="matchesResult" class="result"></div>
+    </div>
+
+    <script>
+        const baseUrl = 'http://127.0.0.1:8000';
+        
+        function showResult(elementId, data, isError = false) {
+            const element = document.getElementById(elementId);
+            element.className = `result ${isError ? 'error' : 'success'}`;
+            element.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+        
+        async function testConnection() {
+            try {
+                const response = await fetch(`${baseUrl}/api/user`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                showResult('connectionResult', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    data: data
+                }, response.status !== 200);
+            } catch (error) {
+                showResult('connectionResult', { error: error.message }, true);
+            }
+        }
+        
+        async function getStats() {
+            try {
+                const response = await fetch(`${baseUrl}/api/skill-to-cash/stats`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                showResult('statsResult', data, !data.success);
+            } catch (error) {
+                showResult('statsResult', { error: error.message }, true);
+            }
+        }
+        
+        async function saveTestProfile() {
+            const testProfile = {
+                categories: ['construction', 'technology'],
+                whatYouCanDo: 'I can build websites, fix computers, and do basic construction work. I have experience with HTML, CSS, JavaScript and can use tools like hammers and drills.',
+                tools: ['HTML', 'CSS', 'JavaScript', 'Hammer', 'Drill', 'Computer'],
+                tasks: [
+                    {
+                        description: 'Built a website for local restaurant',
+                        client: 'Mama Janes Restaurant',
+                        result: 'Increased their online orders by 40%'
+                    },
+                    {
+                        description: 'Fixed computers for neighbors',
+                        client: 'Community members',
+                        result: 'Solved 15+ computer problems, got referrals'
+                    }
+                ],
+                visibility: {
+                    profileVisible: true,
+                    allowDirectContact: true,
+                    receiveJobAlerts: true
+                }
+            };
+            
+            try {
+                const response = await fetch(`${baseUrl}/api/skill-to-cash/profile`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(testProfile)
+                });
+                
+                const data = await response.json();
+                showResult('saveResult', data, !data.success);
+            } catch (error) {
+                showResult('saveResult', { error: error.message }, true);
+            }
+        }
+        
+        async function getProfile() {
+            try {
+                const response = await fetch(`${baseUrl}/api/skill-to-cash/profile`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                showResult('profileResult', data, !data.success);
+            } catch (error) {
+                showResult('profileResult', { error: error.message }, true);
+            }
+        }
+        
+        async function getMatches() {
+            try {
+                const response = await fetch(`${baseUrl}/api/skill-to-cash/matches`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                showResult('matchesResult', data, !data.success);
+            } catch (error) {
+                showResult('matchesResult', { error: error.message }, true);
+            }
+        }
+    </script>
+</body>
+</html>
